@@ -1,99 +1,136 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Charles Glascoe</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                background: #f8f9fa;
-                color: #212529;
-                padding: 40px 20px;
-            }
-            .container {
-                max-width: 600px;
-                margin: auto;
-                background: #fff;
-                padding: 30px;
-                border-radius: 12px;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            }
-            img {
-                border-radius: 50%;
-                width: 140px;
-                height: 140px;
-                object-fit: cover;
-                margin-bottom: 20px;
-                border: 3px solid #444;
-            }
-            h1 {
-                margin: 10px 0 5px;
-                font-size: 26px;
-            }
-            p {
-                margin: 6px 0;
-                font-size: 16px;
-            }
-            .section-title {
-                margin-top: 24px;
-                font-weight: bold;
-                font-size: 18px;
-                text-transform: uppercase;
-                color: #555;
-            }
-            .email {
-                margin-top: 20px;
-                font-size: 16px;
-                font-weight: bold;
-                color: #007bff;
-            }
-            .socials a {
-                display: block;
-                margin-top: 8px;
-                color: #007bff;
-                text-decoration: none;
-                font-size: 16px;
-            }
-            .socials a:hover {
-                text-decoration: underline;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <img
-                src="https://pbs.twimg.com/profile_images/1911649715164254208/XqJ6n_0L_400x400.jpg"
-                alt="Charles Glascoe"
-            />
-            <h1>Charles Glascoe</h1>
-            <p>16 year old bug bounty hunter & red teamer</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charles Glascoe</title>
+    <style>
+      :root {
+        --bg-dark: #0b0f14;
+        --card-bg: #161b22;
+        --text-primary: #e6edf3;
+        --text-secondary: #8b949e;
+        --accent: #58a6ff;
+        --border: #30363d;
+      }
 
-            <div class="section-title">Experience</div>
-            <p>Freelance Security Consultant @ HackerOne</p>
-            <p>Content Creator @ YouTube</p>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
 
-            <div class="section-title">Certifications</div>
-            <p>CRTP, CPTS</p>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg-dark);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
 
-            <div class="section-title">Contact</div>
-            <p class="email">erg0sum@p.me</p>
+      .container {
+        max-width: 540px;
+        width: 100%;
+        background: var(--card-bg);
+        padding: 48px 36px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(88, 166, 255, 0.15);
+        text-align: center;
+      }
 
-            <div class="section-title">Socials</div>
-            <div class="socials">
-                <a href="https://www.youtube.com/@ergoproxy-00" target="_blank"
-                    >YouTube: @ergoproxy-00</a
-                >
-                <a href="https://x.com/_erg0sum" target="_blank"
-                    >X: @_erg0sum</a
-                >
-                <a
-                    href="https://www.linkedin.com/in/charles-glascoe-jr-949b44340/"
-                    target="_blank"
-                    >LinkedIn: Charles Glascoe Jr</a
-                >
-            </div>
-        </div>
-    </body>
+      img {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--accent);
+        margin-bottom: 24px;
+        box-shadow: 0 6px 20px rgba(88, 166, 255, 0.25);
+      }
+
+      h1 {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+      }
+
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 16px;
+        margin-bottom: 32px;
+        line-height: 1.4;
+      }
+
+      .section-title {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        color: var(--accent);
+        margin-top: 24px;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 5px 0;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text-primary);
+      }
+
+      .email {
+        display: inline-block;
+        margin-top: 8px;
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+      }
+      .email:hover { opacity: 0.85; }
+
+      .socials a {
+        display: block;
+        color: var(--text-secondary);
+        text-decoration: none;
+        margin-top: 7px;
+        font-size: 15px;
+        transition: color 0.2s ease, transform 0.2s ease;
+      }
+      .socials a:hover {
+        color: var(--accent);
+        transform: translateX(4px);
+      }
+
+      @media (max-width: 600px) {
+        .container { padding: 36px 24px; }
+        img { width: 140px; height: 140px; }
+        h1 { font-size: 26px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="https://media.licdn.com/dms/image/v2/D4E03AQEf71nt-WUsAw/profile-displayphoto-crop_800_800/B4EZ9Me0.rH8AI-/0/1783694580278?e=1785369600&v=beta&t=qqBFQbYDTjUf5OXO7A0Y8xxe-M6rPyBWDn0pKlk8M88" alt="Charles Glascoe" />
+      <h1>Charles Glascoe</h1>
+      <p class="subtitle">16 year old bug bounty hunter & red teamer</p>
+
+      <div class="section-title">Experience</div>
+      <p>Freelance Security Consultant @ HackerOne</p>
+      <p>Content Creator @ YouTube</p>
+
+      <div class="section-title">Certifications</div>
+      <p>CRTP, CPTS</p>
+
+      <div class="section-title">Contact</div>
+      <a href="mailto:erg0sum@p.me" class="email">erg0sum@p.me</a>
+
+      <div class="section-title">Socials</div>
+      <div class="socials">
+        <a href="https://www.youtube.com/@ergoproxy-00" target="_blank">YouTube: @ergoproxy-00</a>
+        <a href="https://x.com/_erg0sum" target="_blank">X: @_erg0sum</a>
+        <a href="https://www.linkedin.com/in/charles-glascoe-jr-949b44340/" target="_blank">LinkedIn: Charles Glascoe Jr</a>
+      </div>
+    </div>
+  </body>
 </html>
