@@ -6,19 +6,20 @@
     <title>Charles Glascoe</title>
     <style>
       :root {
-        --bg-dark: #0b0f14;
-        --card-bg: #161b22;
-        --text-primary: #e6edf3;
-        --text-secondary: #8b949e;
-        --accent: #58a6ff;
-        --border: #30363d;
+        --bg-dark: #090a0f;
+        --card-bg: rgba(18, 20, 28, 0.75);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --accent-purple: #8B5CF6;
+        --accent-glow: rgba(139, 92, 246, 0.35);
+        --border-subtle: rgba(139, 92, 246, 0.2);
       }
 
       * { box-sizing: border-box; margin: 0; padding: 0; }
 
       body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        background: var(--bg-dark);
+        background: radial-gradient(1200px circle at top center, rgba(139, 92, 246, 0.08), var(--bg-dark) 40%), var(--bg-dark);
         color: var(--text-primary);
         min-height: 100vh;
         display: flex;
@@ -31,28 +32,41 @@
         max-width: 540px;
         width: 100%;
         background: var(--card-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         padding: 48px 36px;
-        border-radius: 16px;
-        border: 1px solid var(--border);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(88, 166, 255, 0.15);
+        border-radius: 20px;
+        border: 1px solid var(--border-subtle);
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(139, 92, 246, 0.1);
         text-align: center;
+        animation: cardFadeIn 0.6s ease-out forwards;
       }
 
       img {
-        width: 160px;
-        height: 160px;
+        width: 150px;
+        height: 150px;
         border-radius: 50%;
         object-fit: cover;
-        border: 3px solid var(--accent);
+        border: 3px solid var(--accent-purple);
         margin-bottom: 24px;
-        box-shadow: 0 6px 20px rgba(88, 166, 255, 0.25);
+        box-shadow: 0 8px 24px var(--accent-glow);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      img:hover {
+        transform: scale(1.04);
+        box-shadow: 0 12px 32px rgba(139, 92, 246, 0.5);
       }
 
       h1 {
-        font-size: 30px;
+        font-size: 32px;
         font-weight: 700;
         margin-bottom: 8px;
         letter-spacing: -0.5px;
+        background: linear-gradient(135deg, #ffffff 60%, var(--accent-purple) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
 
       .subtitle {
@@ -66,28 +80,40 @@
         font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 1.8px;
-        color: var(--accent);
+        color: var(--accent-purple);
         margin-top: 24px;
         margin-bottom: 10px;
         font-weight: 600;
+        position: relative;
+        padding-left: 0;
+        text-align: center;
       }
+
+      .section-title::before {
+  display: none;
+}
 
       p {
         margin: 5px 0;
         font-size: 15px;
         line-height: 1.5;
         color: var(--text-primary);
+        text-align: center;
       }
 
       .email {
         display: inline-block;
         margin-top: 8px;
-        color: var(--accent);
+        color: var(--accent-purple);
         font-weight: 600;
         text-decoration: none;
-        transition: opacity 0.2s ease;
+        transition: opacity 0.2s ease, transform 0.2s ease;
       }
-      .email:hover { opacity: 0.85; }
+
+      .email:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+      }
 
       .socials a {
         display: block;
@@ -95,23 +121,32 @@
         text-decoration: none;
         margin-top: 7px;
         font-size: 15px;
-        transition: color 0.2s ease, transform 0.2s ease;
+        padding-left: 12px;
+        border-left: 2px solid transparent;
+        transition: color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
       }
+
       .socials a:hover {
-        color: var(--accent);
+        color: var(--accent-purple);
         transform: translateX(4px);
+        border-left-color: var(--accent-purple);
+      }
+
+      @keyframes cardFadeIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
 
       @media (max-width: 600px) {
-        .container { padding: 36px 24px; }
-        img { width: 140px; height: 140px; }
-        h1 { font-size: 26px; }
+        .container { padding: 36px 24px; border-radius: 16px; }
+        img { width: 130px; height: 130px; }
+        h1 { font-size: 28px; }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <img src="https://media.licdn.com/dms/image/v2/D4E03AQEf71nt-WUsAw/profile-displayphoto-crop_800_800/B4EZ9Me0.rH8AI-/0/1783694580278?e=1785369600&v=beta&t=qqBFQbYDTjUf5OXO7A0Y8xxe-M6rPyBWDn0pKlk8M88" alt="Charles Glascoe" />
+      <img src="pfp.png" alt="Charles Glascoe" />
       <h1>Charles Glascoe</h1>
       <p class="subtitle">16 year old bug bounty hunter & red teamer</p>
 
