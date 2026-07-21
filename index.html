@@ -1,171 +1,105 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Charles Glascoe</title>
-    <style>
-      :root {
-        --bg-dark: #090a0f;
-        --card-bg: rgba(18, 20, 28, 0.75);
-        --text-primary: #f8fafc;
-        --text-secondary: #94a3b8;
-        --accent-purple: #8B5CF6;
-        --accent-glow: rgba(139, 92, 246, 0.35);
-        --border-subtle: rgba(139, 92, 246, 0.2);
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charles Glascoe — Pentester &amp; Red Teamer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { purple: { 400: '#a855f7', 500: '#9333ea', 600: '#7e22ce' } } } }
+    }
+  </script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 40%, #1a0a2e 100%);
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 30% 20%, rgba(147,51,234,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 80%, rgba(168,85,247,0.2) 0%, transparent 60%);
+      pointer-events: none; z-index: -1;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeInUp 0.8s ease-out both;
+    }
+    .section-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(147,51,234,0.3);
+    }
+    a.link-hover {
+      transition: color 0.3s ease, text-decoration-color 0.3s ease;
+    }
+    a.link-hover:hover {
+      color: #c084fc;
+      text-decoration-color: #c084fc;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div id="card" class="w-full max-w-md mx-4">
 
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        background: radial-gradient(1200px circle at top center, rgba(139, 92, 246, 0.08), var(--bg-dark) 40%), var(--bg-dark);
-        color: var(--text-primary);
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-      }
-
-      .container {
-        max-width: 540px;
-        width: 100%;
-        background: var(--card-bg);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        padding: 48px 36px;
-        border-radius: 20px;
-        border: 1px solid var(--border-subtle);
-        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(139, 92, 246, 0.1);
-        text-align: center;
-        animation: cardFadeIn 0.6s ease-out forwards;
-      }
-
-      img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid var(--accent-purple);
-        margin-bottom: 24px;
-        box-shadow: 0 8px 24px var(--accent-glow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      img:hover {
-        transform: scale(1.04);
-        box-shadow: 0 12px 32px rgba(139, 92, 246, 0.5);
-      }
-
-      h1 {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        letter-spacing: -0.5px;
-        background: linear-gradient(135deg, #ffffff 60%, var(--accent-purple) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-
-      .subtitle {
-        color: var(--text-secondary);
-        font-size: 16px;
-        margin-bottom: 32px;
-        line-height: 1.4;
-      }
-
-      .section-title {
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1.8px;
-        color: var(--accent-purple);
-        margin-top: 24px;
-        margin-bottom: 10px;
-        font-weight: 600;
-        position: relative;
-        padding-left: 0;
-        text-align: center;
-      }
-
-      .section-title::before {
-  display: none;
-}
-
-      p {
-        margin: 5px 0;
-        font-size: 15px;
-        line-height: 1.5;
-        color: var(--text-primary);
-        text-align: center;
-      }
-
-      .email {
-        display: inline-block;
-        margin-top: 8px;
-        color: var(--accent-purple);
-        font-weight: 600;
-        text-decoration: none;
-        transition: opacity 0.2s ease, transform 0.2s ease;
-      }
-
-      .email:hover {
-        opacity: 0.85;
-        transform: translateY(-1px);
-      }
-
-      .socials a {
-        display: block;
-        color: var(--text-secondary);
-        text-decoration: none;
-        margin-top: 7px;
-        font-size: 15px;
-        padding-left: 12px;
-        border-left: 2px solid transparent;
-        transition: color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
-      }
-
-      .socials a:hover {
-        color: var(--accent-purple);
-        transform: translateX(4px);
-        border-left-color: var(--accent-purple);
-      }
-
-      @keyframes cardFadeIn {
-        from { opacity: 0; transform: translateY(12px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-
-      @media (max-width: 600px) {
-        .container { padding: 36px 24px; border-radius: 16px; }
-        img { width: 130px; height: 130px; }
-        h1 { font-size: 28px; }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <img src="pfp.png" alt="Charles Glascoe" />
-      <h1>Charles Glascoe</h1>
-      <p class="subtitle">16 year old bug bounty hunter & red teamer</p>
-
-      <div class="section-title">Experience</div>
-      <p>Freelance Security Consultant @ HackerOne</p>
-      <p>Content Creator @ YouTube</p>
-
-      <div class="section-title">Certifications</div>
-      <p>CRTP, CPTS</p>
-
-      <div class="section-title">Contact</div>
-      <a href="mailto:erg0sum@p.me" class="email">erg0sum@p.me</a>
-
-      <div class="section-title">Socials</div>
-      <div class="socials">
-        <a href="https://www.youtube.com/@ergoproxy-00" target="_blank">YouTube: @ergoproxy-00</a>
-        <a href="https://x.com/_erg0sum" target="_blank">X: @_erg0sum</a>
-        <a href="https://www.linkedin.com/in/charles-glascoe-jr-949b44340/" target="_blank">LinkedIn: Charles Glascoe Jr</a>
+    <div class="fade-in section-hover bg-white/[0.05] backdrop-blur-md rounded-2xl p-8 mb-4 border border-purple-500/30">
+      <div class="flex items-center gap-6">
+        <div>
+          <h1 class="text-3xl font-bold text-white tracking-tight">Charles Glascoe</h1>
+          <p class="mt-2 text-lg text-purple-400">Pentester &amp; Red Teamer</p>
+          <p class="mt-1 text-sm text-gray-400">Age 17</p>
+        </div>
+        <img src="pfp.png" alt="Charles Glascoe" class="w-20 h-20 rounded-full border-2 border-purple-500/60 flex-shrink-0 object-cover">
       </div>
     </div>
-  </body>
+
+    <div class="fade-in section-hover bg-white/[0.05] backdrop-blur-md rounded-2xl p-6 mb-4 border border-purple-500/30" style="animation-delay: 0.15s;">
+      <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.617 9.034a5.583 5.583 0 01-.593-1.623A5.583 5.583 0 0112 3.5h0a5.583 5.583 0 014.117 9.034z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3.5a5.583 5.583 0 00-4.117 9.034A5.583 5.583 0 0012 16h0a5.583 5.583 0 004.117-9.034z"/></svg>
+        Experience
+      </h2>
+      <ul class="mt-3 space-y-2 text-gray-300">
+        <li><strong class="text-white">Freelance Security Consultant</strong> — HackerOne</li>
+        <li><strong class="text-white">Content Creator</strong> — YouTube</li>
+      </ul>
+    </div>
+
+    <div class="fade-in section-hover bg-white/[0.05] backdrop-blur-md rounded-2xl p-6 mb-4 border border-purple-500/30" style="animation-delay: 0.3s;">
+      <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Certifications
+      </h2>
+      <ul class="mt-3 space-y-2 text-gray-300">
+        <li><strong class="text-white">CRTP</strong> — Certified Red Team Professional</li>
+        <li><strong class="text-white">CPTS</strong> — Certified Penetration Testing Specialist</li>
+      </ul>
+    </div>
+
+    <div class="fade-in section-hover bg-white/[0.05] backdrop-blur-md rounded-2xl p-6 mb-4 border border-purple-500/30" style="animation-delay: 0.45s;">
+      <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.66a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Contact
+      </h2>
+      <a href="mailto:erg0sum@p.me" class="link-hover mt-3 inline-block text-purple-400 underline decoration-purple-500/50">erg0sum@p.me</a>
+    </div>
+
+    <div class="fade-in section-hover bg-white/[0.05] backdrop-blur-md rounded-2xl p-6 mb-4 border border-purple-500/30" style="animation-delay: 0.6s;">
+      <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4c-.96.96-.96 2.528 0 3.488l4 4a4 4 0 005.656 0l4-4a4 4 0 000-5.656z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.828 10.172a4 4 0 00-5.656 0l-4 4c-.96.96-.96 2.528 0 3.488l4 4a4 4 0 005.656 0l4-4a4 4 0 000-5.656z"/></svg>
+        Social Media
+      </h2>
+      <a href="https://www.linkedin.com/in/charles-glascoe-jr-949b44340/" target="_blank" rel="noopener noreferrer" class="link-hover mt-3 inline-flex items-center gap-2 text-purple-400 underline decoration-purple-500/50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-6.19c0-2.18-.68-3.55-2.18-3.55-1.145 0-1.885.79-1.885 2.32v6.42H9.266V9.37h3.45c1.89 0 2.835 1.27 2.835 3.55v6.53zM10.5 9.37a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0zM6.447 20.452H2.89V9.37h3.557v11.082z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+
+  </div>
+</body>
 </html>
