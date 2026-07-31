@@ -305,7 +305,7 @@
    Leave it empty ("") to run in local mode: the page shows the
    JSON and offers a download instead of sending anything.
    ============================================================ */
-const ENDPOINT = "https://signal-check-survey.YOUR-SUBDOMAIN.workers.dev";
+const ENDPOINT = window.SURVEY_ENDPOINT || "https://signal-check-survey.cglascoe-jr.workers.dev/survey";
 
 const SCHEMA = [
   {

@@ -85,3 +85,42 @@ export function validateAnswers(rawAnswers) {
 
   return cleaned;
 }
+
+// RFC 5322 is overkill for a contact form; this rejects the obvious
+// garbage (missing @, no domain dot, whitespace) without being so strict
+// that it bounces real addresses.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export const CONTACT_LIMITS = {
+  name: 100,
+  email: 254, // RFC 5321 max mailbox length
+  subject: 150,
+  message: 3000
+};
+
+// Validates and returns a cleaned { name, email, subject, message } object,
+// or throws an Error describing the first problem found.
+export function validateContact(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    throw new Error("payload must be an object");
+  }
+
+  const name = typeof raw.name === "string" ? raw.name.trim() : "";
+  if (!name) throw new Error("name is required");
+  if (name.length > CONTACT_LIMITS.name) throw new Error("name is too long");
+
+  const email = typeof raw.email === "string" ? raw.email.trim() : "";
+  if (!email) throw new Error("email is required");
+  if (email.length > CONTACT_LIMITS.email || !EMAIL_RE.test(email)) {
+    throw new Error("email is invalid");
+  }
+
+  const subject = typeof raw.subject === "string" ? raw.subject.trim() : "";
+  if (subject.length > CONTACT_LIMITS.subject) throw new Error("subject is too long");
+
+  const message = typeof raw.message === "string" ? raw.message.trim() : "";
+  if (!message) throw new Error("message is required");
+  if (message.length > CONTACT_LIMITS.message) throw new Error("message is too long");
+
+  return { name, email, subject, message };
+}

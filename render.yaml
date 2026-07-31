@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: pure-nomad-backend
+    env: node
+    region: oregon
+    plan: free
+    rootDir: worker
+    buildCommand: npm install
+    startCommand: npm start || npx wrangler dev --ip 0.0.0.0 --port $PORT
+    envVars:
+      - key: ALLOWED_ORIGIN
+        value: https://pure-nomad.github.io
+      - key: TO_EMAIL
+        value: cglascoe.jr@gmail.com
+      - key: GMAIL_CLIENT_ID
+        sync: false
+      - key: GMAIL_CLIENT_SECRET
+        sync: false
+      - key: GMAIL_REFRESH_TOKEN
+        sync: false
