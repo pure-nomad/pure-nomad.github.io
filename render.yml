@@ -1,0 +1,27 @@
+version: "1"
+
+services:
+  - type: web
+    name: charles-security-site
+    runtime: static
+    repo: https://github.com/pure-nomad/pure-nomad.github.io
+    branch: main
+    
+    # If using plain HTML/CSS/JS (no build step):
+    publishPath: .
+    buildCommand: ""
+    
+    # If using Jekyll, Hugo, or a JS build tool (uncomment as needed):
+    # buildCommand: "jekyll build"
+    # publishPath: "_site"
+
+    # Custom domain setup
+    domains:
+      - charlessecurity.org
+      - www.charlessecurity.org
+
+    # Optional routing rules (e.g., redirect HTTP to HTTPS or clean URLs)
+    routes:
+      - type: redirect
+        source: /*
+        destination: https://charlessecurity.org/*
