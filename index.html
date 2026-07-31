@@ -17,7 +17,7 @@
     }
     body::before {
       content: '';
-      position: fixed; inset: 0;
+      position: absolute; inset: 0; min-height: 100%;
       background: radial-gradient(ellipse at 25% 15%, rgba(147,51,234,0.16) 0%, transparent 55%),
                   radial-gradient(ellipse at 80% 10%, rgba(45,212,191,0.05) 0%, transparent 50%),
                   radial-gradient(ellipse at 75% 90%, rgba(88,28,135,0.18) 0%, transparent 55%),
@@ -53,6 +53,14 @@
       transform: translateY(-4px);
       box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px rgba(147,51,234,0.25), inset 0 1px 0 rgba(255,255,255,0.07);
       border-color: rgba(168,85,247,0.45);
+    }
+    /* Mobile browsers without backdrop-filter support render .glass as a near-transparent
+       sliver with no blur, washing out the purple/teal palette. Give it equivalent visual
+       weight with an opaque fallback so the same colors read correctly. */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .glass {
+        background: linear-gradient(160deg, #201a2c 0%, #120e1a 100%);
+      }
     }
     .glass-tight:hover {
       transform: translateY(-2px);
@@ -113,6 +121,12 @@
     <div id="tab-about" class="tab-panel">
       <div class="max-w-md mx-auto">
         <div class="fade-in flex flex-wrap justify-end gap-2 mb-3">
+          <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="badge-pill link-hover glass rounded-xl px-3 py-2 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-teal-500 text-[#0b1020] text-xs font-bold flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 3h7l4 4v14a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 3v4h4"/></svg>
+            </span>
+            <span class="text-white font-medium text-sm">Resume</span>
+          </a>
           <a href="https://pr.tn/ref/XFTXH85M" target="_blank" rel="noopener noreferrer" class="badge-pill link-hover glass rounded-xl px-3 py-2 flex items-center gap-2">
             <span class="w-6 h-6 rounded-md bg-[#6D4AFF] text-white text-xs font-bold flex items-center justify-center">P</span>
             <span class="text-white font-medium text-sm">Proton Mail</span>
