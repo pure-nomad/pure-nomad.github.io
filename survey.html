@@ -269,6 +269,9 @@
   <form id="survey" novalidate>
     <div id="phases"></div>
 
+    <!-- Honeypot: hidden from real users, bots that fill every field trip it. -->
+    <input type="text" name="company" id="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+
     <div class="actions">
       <button type="submit" class="btn-go" id="submit" disabled>Send answers</button>
       <button type="button" class="btn-ghost" id="reset">Start over</button>
@@ -302,7 +305,7 @@
    Leave it empty ("") to run in local mode: the page shows the
    JSON and offers a download instead of sending anything.
    ============================================================ */
-const ENDPOINT = "";
+const ENDPOINT = "https://signal-check-survey.YOUR-SUBDOMAIN.workers.dev";
 
 const SCHEMA = [
   {
@@ -499,6 +502,7 @@ form.addEventListener("submit", async (e) => {
   const payload = {
     submitted_at: new Date().toISOString(),
     source: location.pathname,
+    company: document.getElementById("company").value,
     answers: answers
   };
 
@@ -517,7 +521,14 @@ form.addEventListener("submit", async (e) => {
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify(payload)
     });
-    if (!res.ok) throw new Error("HTTP " + res.status);
+    if (!res.ok) {
+      let detail = "HTTP " + res.status;
+      try {
+        const errBody = await res.json();
+        if (errBody && errBody.error) detail = errBody.error;
+      } catch {}
+      throw new Error(detail);
+    }
     finish(payload);
   } catch (err) {
     submitBtn.disabled = false;
